@@ -51,13 +51,15 @@ function DownloadOpenGL ($architecture) {
         # Move files into the right destination (libraries & headers)
         Move-Item -Path "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}\lib-vc2017\glfw3.dll" -Destination "${filepathDll}"
         Move-Item -Path "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}\lib-vc2017\glfw3.lib" -Destination "${filepathLib}"
-        if (Test-Path $filepathDll -and Test-Path $filepathLib) {
-            Write-Host "File moved to" $filepathDll
-            Write-Host "File moved to" $filepathLib
-            # Safe to clean out all unused archives & folders
-            # Remove temporary created files
-            Remove-item -LiteralPath $filepathTmp
-            # Remove-item -LiteralPath  "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}"
+        if (Test-Path $filepathDll) {
+            if (Test-Path $filepathLib) {
+                Write-Host "File moved to" $filepathDll
+                Write-Host "File moved to" $filepathLib
+                # Safe to clean out all unused archives & folders
+                # Remove temporary created files
+                Remove-item -LiteralPath $filepathTmp
+                # Remove-item -LiteralPath  "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}"
+            }
         }
     } else {
         # Retry once to get the error message if any at the last try
