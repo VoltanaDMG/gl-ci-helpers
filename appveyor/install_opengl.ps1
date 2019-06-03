@@ -48,17 +48,22 @@ function DownloadOpenGL ($architecture) {
         Write-Host "File saved at" $filepathTmp
         # Unpack our zip-Archive
         Invoke-Expression "& `"7z`" x ${filepathTmp} -y -oC:\Users\${env:UserName}\Downloads"
-        # Move files into the right destination (libraries & headers)
+        # Move files into the right destination (libraries)
         Move-Item -Path "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}\lib-vc2017\glfw3.dll" -Destination "${filepathDll}"
         Move-Item -Path "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}\lib-vc2017\glfw3.lib" -Destination "${filepathLib}"
+        # Move folders into the right destination (headers)
+        Move-Item -Path "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}\include" -Destination "C:\Users\${env:UserName}\Downloads"
         if (Test-Path $filepathDll) {
             if (Test-Path $filepathLib) {
                 Write-Host "File moved to" $filepathDll
                 Write-Host "File moved to" $filepathLib
-                # Safe to clean out all unused archives & folders
-                # Remove temporary created files
-                Remove-item -LiteralPath $filepathTmp
-                # Remove-item -LiteralPath  "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}"
+                if (Test-Path "C:\Users\${env:UserName}\Downloads\GLFW\glfw3.h") {
+                    Write-Host "Folder moved to C:\Users\${env:UserName}\Downloads"
+                    # Safe to clean out all unused archives & folders
+                    # Remove temporary created files
+                    Remove-item -LiteralPath $filepathTmp
+                    # Remove-item -LiteralPath  "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}"
+                }
             }
         }
     } else {
