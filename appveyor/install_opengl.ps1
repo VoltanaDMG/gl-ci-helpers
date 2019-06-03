@@ -30,7 +30,7 @@ function DownloadOpenGL ($architecture) {
         $filepathLib = "C:\Windows\system32\glfw3.lib"
     }
     $filepathTmp = "C:\Users\${env:UserName}\Downloads\${fileName}"
-    $glfwBase = "C:\Users\${env:UserName}\Downloads"
+    $glfwBase = "C:\Users\${env:UserName}\Documents"
     $glfwHeader = "${glfwBase}\GLFW\glfw3.h"
     # takeown /F $filepath /A
     # icacls $filepath /grant "${env:ComputerName}\${env:UserName}:F"
@@ -54,7 +54,7 @@ function DownloadOpenGL ($architecture) {
         Move-Item -Path "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}\lib-vc2017\glfw3.dll" -Destination "${filepathDll}"
         Move-Item -Path "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}\lib-vc2017\glfw3.lib" -Destination "${filepathLib}"
         # Move folders into the right destination (headers)
-        Move-Item -Path "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}\include" -Destination "${glfwBase}"
+        Move-Item -Path "C:\Users\${env:UserName}\Downloads\glfw-3.3.bin.WIN${architecture}\include\GLFW" -Destination "${glfwBase}"
         if (Test-Path $filepathDll) {
             if (Test-Path $filepathLib) {
                 Write-Host "File moved to" $filepathDll
