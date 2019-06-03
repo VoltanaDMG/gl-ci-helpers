@@ -76,7 +76,7 @@ function DownloadOpenGL ($architecture) {
 
 
 function main () {
-    DownloadOpenGL "64"
+    DownloadOpenGL "32"
 }
 
 main
