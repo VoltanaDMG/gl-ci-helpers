@@ -115,7 +115,7 @@ function DownloadMesaOpenGL ($architecture) {
 
 
 function main () {
-    DownloadGLFW "64 C:\projects\scg3-v2019"
+    DownloadGLFW "64" "C:\projects\scg3-v2019"
     DownloadMesaOpenGL "64"
 }
 
