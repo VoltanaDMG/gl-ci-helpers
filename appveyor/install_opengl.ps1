@@ -21,7 +21,7 @@ $MESA_GL_URL = "https://github.com/vispy/demo-data/raw/master/mesa/"
 # to:
 #     http://sourceforge.net/projects/msys2/files/REPOS/MINGW/x86_64/mingw-w64-x86_64-mesa-10.2.4-1-any.pkg.tar.xz/download
 
-function DownloadGLFW ($architecture) {
+function DownloadGLFW ($architecture, $projectPath) {
     [Net.ServicePointManager]::SecurityProtocol = 'Ssl3, Tls, Tls11, Tls12'
     $webclient = New-Object System.Net.WebClient
     # Download and retry up to 3 times in case of network transient errors.
@@ -30,11 +30,11 @@ function DownloadGLFW ($architecture) {
     # For later use, need to move file to the system directory to make it
     # globally accessible
     if ($architecture -eq "32") {
-        $filepathDll = "C:\Windows\SysWOW64\glfw3.dll"
-        $filepathLib = "C:\Windows\SysWOW64\glfw3.lib"
+        $filepathDll = "${projectPath}\includes\Win${architecture}\glfw3.dll"
+        $filepathLib = "${projectPath}\includes\Win${architecture}\glfw3.lib"
     } else {
-        $filepathDll = "C:\Windows\system32\glfw3.dll"
-        $filepathLib = "C:\Windows\system32\glfw3.lib"
+        $filepathDll = "${projectPath}\includes\x${architecture}\glfw3.dll"
+        $filepathLib = "${projectPath}\includes\x${architecture}\glfw3.lib"
     }
     $filepathTmp = "C:\Users\${env:UserName}\Downloads\${fileName}"
     $glfwBase = "C:\Users\${env:UserName}\Documents"
@@ -115,7 +115,7 @@ function DownloadMesaOpenGL ($architecture) {
 
 
 function main () {
-    DownloadGLFW "64"
+    DownloadGLFW "64 C:\projects\scg3-v2019"
     DownloadMesaOpenGL "64"
 }
 
